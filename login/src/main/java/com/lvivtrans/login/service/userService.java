@@ -6,4 +6,5 @@ import java.util.List;
 public interface userService {
     public user saveUser(user user);
     List<user> getAllUsers();
+    user findByEmail(String email);
 }
