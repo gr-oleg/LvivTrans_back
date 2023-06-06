@@ -4,6 +4,7 @@ import com.lvivtrans.login.model.user;
 import com.lvivtrans.login.repository.userRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -26,5 +27,11 @@ public class userServiceImpl implements userService {
     @Override
     public user findByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    @Override
+    @Transactional
+    public void deleteById(Long id) {
+       userRepository.deleteById(id);
     }
 }
