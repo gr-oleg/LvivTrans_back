@@ -3,6 +3,7 @@ package com.lvivtrans.login.controller;
 import com.lvivtrans.login.exception.UserNotFoundException;
 import com.lvivtrans.login.model.user;
 import com.lvivtrans.login.service.userService;
+import com.lvivtrans.login.repository.userRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,9 +43,12 @@ public class userController {
         return userService.saveUser(existingUser);
     }
 
+
+    @Autowired
+    private userRepository UserRepository;
     @DeleteMapping("/{id}")
     public String deleteUser(@PathVariable Long id) {
-        userService.deleteById(id);
+        UserRepository.deleteById(id);
         return "User with id " + id + " has been deleted successfully.";
     }
 }
