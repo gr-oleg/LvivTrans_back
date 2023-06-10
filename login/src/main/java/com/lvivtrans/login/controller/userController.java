@@ -4,6 +4,7 @@ import com.lvivtrans.login.exception.UserNotFoundException;
 import com.lvivtrans.login.model.user;
 import com.lvivtrans.login.service.userService;
 import com.lvivtrans.login.repository.userRepository;
+import com.lvivtrans.login.exception.UserAlreadyRegisteredException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +19,10 @@ public class userController {
 
     @PostMapping("/add")
     public String add(@RequestBody user user){
+        user existingUser = userService.findByEmail(user.getEmail());
+        if (existingUser != null) {
+            throw new UserAlreadyRegisteredException();
+        }
         userService.saveUser(user);
         return "New user is added";
     }
